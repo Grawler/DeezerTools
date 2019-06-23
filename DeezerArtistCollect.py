@@ -2,6 +2,8 @@
 """
 @author: Grawl, grawler@gmail.com, https://github.com/Grawler
 
+DeezerArtistCollect
+
 Collects all artist stored in user's playlists and reports back which
  artist is located in what playlist
  
