@@ -1,4 +1,4 @@
-# Project Title
+# DeezerArtistCollect
 
 Before I used Deezer, I was using Spotify. On each playlist on Spotify, there's a limit of 10,000 songs. This may seem like a lot, but I personally organize my playlists by the first letter of the artist. So playlist 'A' would have artists like ABBA, A Perfect Circle and AFI. Sometimes this would exceed the limit of 10,000 songs and I would start a second playlist called 'A Pt. II'.
 
