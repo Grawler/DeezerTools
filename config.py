@@ -2,7 +2,7 @@
 """
 @author: Grawl, grawler@gmail.com, https://github.com/Grawler
 
-DeezerArtistCollect/config.py
+DeezerTools/config.py
 """
 
 # Visit Deezer.com with your browser and log in. On the left side will be

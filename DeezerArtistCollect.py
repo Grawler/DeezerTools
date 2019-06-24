@@ -2,7 +2,7 @@
 """
 @author: Grawl, grawler@gmail.com, https://github.com/Grawler
 
-DeezerArtistCollect/DeezerArtistCollect.py
+DeezerTools/DeezerArtistCollect.py
 """
 
 from config import *
@@ -16,6 +16,9 @@ print("Enter your deezer_id. If left empty it'll use the default stored in " +
 input_id = input("deezer_id: ")
 if not input_id:
     input_id = deezer_id
+    print("Using " + deezer_id)
+else:
+    print("Using " + input_id)
     
 artists = {}
 playlists = []
@@ -56,8 +59,8 @@ for id in playlists_ids:
             artists[artist_name] = playlist_name
             print ("Added " + artist_name + ", found in " + playlist_name +
                    " (" + str(id) + ")")
-
-# Output artists dictionary as"output_artists.txt"
+            
+# Output artists dictionary as "output_ DeezerArtistCollect.txt"
     
-with open("output_artists.txt", "w+") as f:
-    print(artists, file=f)
+with open("output_ DeezerArtistCollect.txt", "w+") as f:
+   print(artists, file=f)
