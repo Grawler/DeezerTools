@@ -28,13 +28,18 @@ You'll need to install Python 3.x and then install the module "requests", see be
 ## Changelog
 
 Changelog:
-    - 0.1: Initial release
-    - 0.2: Output artists dictionary as "output_artists.txt"
-           Include playlist ID in output
-           Create README
-           Moved changelog to README
-           Created "config.py" for variables (deezer_id)
-           Set up ignored_playlist_ids for later use in config.py
+
+### 0.1:
+
+- Initial release
+
+### 0.2:
+- Output artists dictionary as "output_artists.txt"
+- Include playlist ID in output
+- Create README
+- Moved changelog to README
+- Created "config.py" for variables (deezer_id)
+- Set up ignored_playlist_ids for later use in config.py
 
 ## ToDo
 
