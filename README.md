@@ -18,7 +18,7 @@ You'll need to install Python 3.x and then install the module "requests", see be
 
 - Download or clone this repo so you end up with DeezerArtistCollect.py and the other files somewhere on your PC
 - Install Python 3.x
-- Install the request module using pip (python -m pip install requests)
+- Install the requests module using pip (python -m pip install requests)
 - Set up config.py (optional, but recommended)
 - Run the Python file for the tool you want to use
 
@@ -38,31 +38,39 @@ Changelog:
 - Initial release
 
 ### 0.2:
-- Output artists dictionary as "output_ DeezerArtistCollect.txt"
+
+- Output artists dictionary as "output_DeezerArtistCollect.txt"
 - Include playlist ID in output
 - Create README
 - Moved changelog to README
 - Created "config.py" for variables (deezer_id)
 - Set up ignored_playlist_ids for later use in config.py
-- Renamed project to DeezerTools
+- Renamed project to DeezerTools (was DeezerArtistCollect)
+
+### 0.3:
+
+- "Ignored list" feature added, which can be set up in config.py
+- "Ignore artist" feature added, which can be set up in config.py
+- (DeezerArtistCollect) "Duplicate artist" feature added, collects artists found in multiple playlists and outputs it as "output_DeezerArtistDupeCollect.txt" (if anything was found)
 
 ## ToDo
 
 - File saving/loading so it doesn't have to cycle through the entire
   playlists collection
-- Also report when artist is found in another playlist
 - Check if playlist has changed in size, if not ignore
-- Ability to ignore certain playlists by id
 - Throw exception when a variable is invalid
+- Ignore songs by id
 
-## Feature Tools
+## Future features
 
-- Check if artist's first letter belongs in playlist
-- Check number of songs in playlist and reports back
+- Check if artist's belongs in playlist if sorted by first letter (DeezerArtistPlaylistBelong)
+- Check number of songs in playlist and reports back (DeezerPlaylistSongCount)
+- Report what albums are in a certain playlist (DeezerPlaylistAlbums)
+- Try to shrink playlists by combining them (DeezerPlaylistOptimize)
 
 ## License
 
-See the [LICENSE.md](LICENSE.md) file for details
+See the [LICENSE.md] file for details
 
 ## Acknowledgments
 

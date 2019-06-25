@@ -13,17 +13,30 @@ DeezerTools/config.py
 
 deezer_id = "498247221"
 
-# These playlists will be ignored while scanning them. Useful when you
-# have some general playlists that aren't part of your main music collection.
-# You can find these playlists IDs at the Deezer website, on your profile.
+# These playlists will be ignored while scanning them.
+# You can find these playlist IDs at the Deezer website, on your profile.
 #
 # Example: https://www.deezer.com/playlist/5711701342
 #                                          ^^^^^^^^^^
-#
-# NOT IMPLEMENTED YET!!!
 
 ignore_playlist_ids = ["5710929302",
-                    "5711701342",
-                    "5736222702",
-                    "5810011802",
-                    "888931541"]
+                       "5711701342",
+                       "5736222702",
+                       "5810011802",
+                       "5768605562",
+                       "5768621602",
+                       "888931541"]
+
+# These artists will be ignored while scanning for them.
+# You can find these artist IDs at the Deezer website, on your profile or in
+# any playlist.
+#
+# Example: https://www.deezer.com/us/artist/6861265
+#                                           ^^^^^^^
+
+ignore_artist_ids = ["6861265",
+                     "5080"]
+
+# NOT IMPLEMENTED YET
+
+ignore_song_ids = []
