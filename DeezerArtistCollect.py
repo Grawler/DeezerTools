@@ -7,6 +7,7 @@ DeezerTools/DeezerArtistCollect.py
 
 from config import *
 import requests
+import time
 
 # Change to your own deezer_id (open a browser, point it to Deezer,
 # click on a menu item on the left)
@@ -25,6 +26,7 @@ artists_dupe = {}
 playlists = []
 playlists_ids = []
 dupe_id = []
+error_log = []
 
 # Set up first run
 
@@ -52,14 +54,43 @@ for dict in playlists:
 # Cycle through all playlists
 
 for id in playlists_ids:
-    url = f"https://api.deezer.com/playlist/" + str(id)
-    r = requests.get(url).json()
-    playlist_name = r["title"]
-    number_of_tracks = len(r["tracks"]["data"])
+    playlists_tracks = []
     
-    for count in range(number_of_tracks):
-        artist_name = r["tracks"]["data"][count]["artist"]["name"]
-        artist_id = r["tracks"]["data"][count]["artist"]["id"]
+    url = f"https://api.deezer.com/playlist/" + str(id)
+    try:
+        r = requests.get(url, timeout=10).json()
+    except requests.exceptions.RequestException as e:
+        print (e)
+        error_log.append(e)
+        time.sleep(60)
+    playlist_name = r["title"]
+    
+    all_tracks_loaded = False
+    url = f"https://api.deezer.com/playlist/" + str(id) + "/tracks"
+    try:
+        r = requests.get(url, timeout=10).json()
+    except requests.exceptions.RequestException as e:
+        print (e)
+        error_log.append(e)
+        time.sleep(60)
+    
+    while not all_tracks_loaded:     
+        try:
+            r = requests.get(url, timeout=10).json()
+        except requests.exceptions.RequestException as e:
+            print (e)
+            error_log.append(e)
+            time.sleep(60)
+        playlists_tracks += r["data"]
+        if r.get("next"):
+            url = r["next"]
+        else:
+            print("Found " + str(len(playlists_tracks)) + " tracks to process for " + playlist_name)
+            all_tracks_loaded = True
+    
+    for count in range(len(playlists_tracks)):
+        artist_name = playlists_tracks[count]["artist"]["name"]
+        artist_id = playlists_tracks[count]["artist"]["id"]
         if artist_name not in artists and str(artist_id) not in ignore_artist_ids:
             artists[artist_name] = playlist_name
             dupe_id.append(id)
@@ -67,7 +98,7 @@ for id in playlists_ids:
         elif artist_name in artists and id not in dupe_id and str(artist_id) not in ignore_artist_ids:
             artists[artist_name] += " + " + playlist_name
             dupe_id.append(id)
-            print ("Found " + artist_name + " in other playlist, " + playlist_name + " (" + str(id) + ") added as dupe playlist")
+            print ("Found " + artist_name + " that already exists in other playlist, " + playlist_name + " (" + str(id) + ") added as dupe playlist")
             artists_dupe[artist_name] = artists[artist_name]
             
 # Output artists dictionary as
@@ -79,9 +110,15 @@ for id in playlists_ids:
 # attempting to write a file
 
 if artists:    
-    with open("output_DeezerArtistCollect.txt", "w+") as f:
+    with open("output_DeezerArtistCollect.txt", "w+", encoding='utf-8') as f:
         print(artists, file=f)
 
 if artists_dupe:   
-    with open("output_DeezerArtistDupeCollect.txt", "w+") as f:
-        print(artists_dupe, file=f)   
+    with open("output_DeezerArtistDupeCollect.txt", "w+", encoding='utf-8') as f:
+        print(artists_dupe, file=f)
+        
+# If an error got caught, log them to "output_ErrorLog.txt"  
+        
+if error_log:
+    with open("output_ErrorLog.txt", "w+", encoding='utf-8') as f:
+        print(error_log, file=f)   

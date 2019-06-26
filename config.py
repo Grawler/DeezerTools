@@ -40,3 +40,12 @@ ignore_artist_ids = ["6861265",
 # NOT IMPLEMENTED YET
 
 ignore_song_ids = []
+ignore_album_ids = []
+
+# If you keep getting errors while running this program, you may want to
+# slow down the requests, where the number is how many seconds the program
+# waits before moving on
+#
+# NOT IMPLEMENTED YET
+
+sleepduration = 0

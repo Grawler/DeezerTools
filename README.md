@@ -53,13 +53,26 @@ Changelog:
 - "Ignore artist" feature added, which can be set up in config.py
 - (DeezerArtistCollect) "Duplicate artist" feature added, collects artists found in multiple playlists and outputs it as "output_DeezerArtistDupeCollect.txt" (if anything was found)
 
+### 0.4:
+
+- Was not grabbing all tracks from a playlist, causing incomplete results. Made sure it now loads all tracks and process them
+- Set encoding to utf-8 so weird characters doesn't stop the program
+- Added try/except so error gets printed and logged, then makes the program sleep for a minute before moving on
+
 ## ToDo
 
 - File saving/loading so it doesn't have to cycle through the entire
   playlists collection
 - Check if playlist has changed in size, if not ignore
-- Throw exception when a variable is invalid
+- Have some form of progress notification when scraping (xxx out of xxx)
+- Have a timer to see how long it takes
+- Scrape in alphabetical order
+- Implement extra sleeping in case of errors
 - Ignore songs by id
+- Ignore albums by id
+- Find artist by name
+- Find song by name
+- Find album by name
 
 ## Future features
 
