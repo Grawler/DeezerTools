@@ -59,25 +59,32 @@ Changelog:
 - Set encoding to utf-8 so weird characters doesn't stop the program
 - Added try/except so error gets printed and logged, then makes the program sleep for a minute before moving on
 
+### 0.5:
+
+- (DeezerPlaylistSongCount) Report back how many songs are in the playlists for deezer_id
+
 ## ToDo
 
 - File saving/loading so it doesn't have to cycle through the entire
   playlists collection
-- Check if playlist has changed in size, if not ignore
+- Check if playlist has changed in size and if not, ignored
 - Have some form of progress notification when scraping (xxx out of xxx)
 - Have a timer to see how long it takes
 - Scrape in alphabetical order
+- Also mention artist id while running
 - Implement extra sleeping in case of errors
+- Add datestamp to error log
 - Ignore songs by id
 - Ignore albums by id
 - Find artist by name
 - Find song by name
 - Find album by name
+- Sort dictionaries before output
+- Create general/generic function to collecting playlists etc.
 
 ## Future features
 
 - Check if artist's belongs in playlist if sorted by first letter (DeezerArtistPlaylistBelong)
-- Check number of songs in playlist and reports back (DeezerPlaylistSongCount)
 - Report what albums are in a certain playlist (DeezerPlaylistAlbums)
 - Try to shrink playlists by combining them (DeezerPlaylistOptimize)
 

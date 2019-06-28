@@ -3,14 +3,14 @@
 @author: Grawl, grawler@gmail.com, https://github.com/Grawler
 
 DeezerTools/DeezerArtistCollect.py
+
+This tool goes through all playlists and reports what artist is found where.
+It'll also report back which artists are present in other playlists.
 """
 
 from config import *
 import requests
 import time
-
-# Change to your own deezer_id (open a browser, point it to Deezer,
-# click on a menu item on the left)
 
 print("Enter your deezer_id. If left empty it'll use the default stored in " +
       "config.py")
@@ -23,10 +23,12 @@ else:
     
 artists = {}
 artists_dupe = {}
-playlists = []
-playlists_ids = []
 dupe_id = []
 error_log = []
+playlists = []
+playlists_ids = []
+
+current_time = time.strftime("%H:%M:%S")
 
 # Set up first run
 
@@ -74,7 +76,7 @@ for id in playlists_ids:
         error_log.append(e)
         time.sleep(60)
     
-    while not all_tracks_loaded:     
+    while not all_tracks_loaded:
         try:
             r = requests.get(url, timeout=10).json()
         except requests.exceptions.RequestException as e:
@@ -101,10 +103,9 @@ for id in playlists_ids:
             print ("Found " + artist_name + " that already exists in other playlist, " + playlist_name + " (" + str(id) + ") added as dupe playlist")
             artists_dupe[artist_name] = artists[artist_name]
             
-# Output artists dictionary as
-#  "output_DeezerArtistCollect.txt" and    
+# Output artists dictionary as "output_DeezerArtistCollect.txt" and    
 # artists that were found in multiple playlists as 
-#  "output_DeezerArtistDupeCollect.txt"
+# "output_DeezerArtistDupeCollect.txt"
 #
 # It checks if the dictionaries actually have something in them before
 # attempting to write a file
@@ -117,8 +118,8 @@ if artists_dupe:
     with open("output_DeezerArtistDupeCollect.txt", "w+", encoding='utf-8') as f:
         print(artists_dupe, file=f)
         
-# If an error got caught, log them to "output_ErrorLog.txt"  
+# If an error got caught, output them
         
 if error_log:
-    with open("output_ErrorLog.txt", "w+", encoding='utf-8') as f:
+    with open("output_ErrorLog_DeezerArtistCollect.txt", "w+", encoding='utf-8') as f:
         print(error_log, file=f)   
