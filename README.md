@@ -63,6 +63,10 @@ Changelog:
 
 - (DeezerPlaylistSongCount) Report back how many songs are in the playlists for deezer_id
 
+### 0.6:
+
+- Added requirements.txt
+
 ## ToDo
 
 - File saving/loading so it doesn't have to cycle through the entire
