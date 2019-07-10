@@ -23,6 +23,7 @@ You'll need to install Python 3.x and then install the module "requests", see be
 - Run the Python file for the tool you want to use
 
 DeezerArtistCollect.py: Collects all artists from your playlists and outputs them as "output_DeezerArtistCollect.txt"
+DeezerPlaylistSongCount.py: Counts how many songs are in each playlist and outputs them as "output_DeezerPlaylistSongCount.txt"
 
 ## Built With
 
@@ -67,14 +68,16 @@ Changelog:
 
 - Added requirements.txt
 
+### 0.7:
+
+- Dictionary are output by alphabetical key order (i.e. the name of the playlist or artist)
+- While processing it'll notify you of the progress (x out x (x%))
+
 ## ToDo
 
-- File saving/loading so it doesn't have to cycle through the entire
-  playlists collection
+- File saving/loading so it doesn't have to cycle through the entire playlists collection
 - Check if playlist has changed in size and if not, ignored
-- Have some form of progress notification when scraping (xxx out of xxx)
 - Have a timer to see how long it takes
-- Scrape in alphabetical order
 - Also mention artist id while running
 - Implement extra sleeping in case of errors
 - Add datestamp to error log
@@ -83,7 +86,6 @@ Changelog:
 - Find artist by name
 - Find song by name
 - Find album by name
-- Sort dictionaries before output
 - Create general/generic function to collecting playlists etc.
 
 ## Future features

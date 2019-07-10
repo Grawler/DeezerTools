@@ -7,7 +7,7 @@ DeezerTools/DeezerPlaylistSongCount.py
 This tool goes through all your playlists and reports the amount of songs
 in it.
 """
-
+  
 from config import *
 import requests
 import time
@@ -22,6 +22,7 @@ else:
     print("Using " + input_id)
 
 error_log = []    
+playlist_count = 0
 playlists = []
 playlists_ids = []
 playlist_tracks = {}
@@ -53,6 +54,9 @@ for dict in playlists:
 
 for id in playlists_ids:
     
+    playlist_count += 1
+    percentage = round(100*playlist_count/len(playlists_ids),2)
+    
     url = f"https://api.deezer.com/playlist/" + str(id)
     try:
         r = requests.get(url, timeout=10).json()
@@ -63,14 +67,16 @@ for id in playlists_ids:
     playlist_name = r["title"]
     playlist_nb_tracks = str(r["nb_tracks"])
     playlist_tracks[playlist_name] = playlist_nb_tracks
-    print("Found " + playlist_nb_tracks + " tracks in " + playlist_name)
+    print("Found " + playlist_nb_tracks + " tracks in " + playlist_name + " (Playlist " + str(playlist_count) + " out of " + str(len(playlists_ids)) + " (" + str(percentage) + "%)")
+    
+# Output dictionaery    
     
 if playlist_tracks:
     with open("output_DeezerPlaylistSongCount.txt", "w+", encoding='utf-8') as f:
-        print(playlist_tracks, file=f)
+        print(sorted(playlist_tracks.items(), key=lambda x: x[0]), file=f)
         
 # If an error got caught, output them
         
 if error_log:
     with open("output_ErrorLog_DeezerPlaylistSongCount.txt", "w+", encoding='utf-8') as f:
-        print(error_log, file=f)           
+        print(error_log, file=f)         

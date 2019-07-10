@@ -33,9 +33,11 @@ ignore_playlist_ids = ["5710929302",
 #
 # Example: https://www.deezer.com/us/artist/6861265
 #                                           ^^^^^^^
+#
+# 5080 = Various Artists
 
-ignore_artist_ids = ["6861265",
-                     "5080"]
+ignore_artist_ids = ["5080",
+                     "6861265"]
 
 # NOT IMPLEMENTED YET
 

@@ -26,6 +26,7 @@ artists_dupe = {}
 dupe_id = []
 error_log = []
 playlists = []
+playlist_count = 0
 playlists_ids = []
 
 current_time = time.strftime("%H:%M:%S")
@@ -56,7 +57,11 @@ for dict in playlists:
 # Cycle through all playlists
 
 for id in playlists_ids:
+    playlist_count += 1
+    percentage = round(100*playlist_count/len(playlists_ids),2)
     playlists_tracks = []
+    
+    print("Processing playlist " + str(playlist_count) + " out of " + str(len(playlists_ids)) + " (" + str(percentage) + "%)" )
     
     url = f"https://api.deezer.com/playlist/" + str(id)
     try:
@@ -112,11 +117,11 @@ for id in playlists_ids:
 
 if artists:    
     with open("output_DeezerArtistCollect.txt", "w+", encoding='utf-8') as f:
-        print(artists, file=f)
+        print(sorted(artists.items(), key=lambda x: x[0]), file=f)
 
 if artists_dupe:   
     with open("output_DeezerArtistDupeCollect.txt", "w+", encoding='utf-8') as f:
-        print(artists_dupe, file=f)
+        print(sorted(artists_dupe.items(), key=lambda x: x[0]), file=f)
         
 # If an error got caught, output them
         
