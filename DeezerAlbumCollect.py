@@ -2,13 +2,13 @@
 """
 @author: Grawl, grawler@gmail.com, https://github.com/Grawler
 
-DeezerTools/DeezerArtistCollect.py
+DeezerTools/DeezerAlbumCollect.py
 
-This tool goes through all playlists and reports what artist is found where.
-It'll also report back which artists are present in other playlists.
+This tool goes through all playlists and reports what albums are found.
 """
 
 from config import *
+import re
 import requests
 import time
 
@@ -20,9 +20,10 @@ if not input_id:
     print("Using " + deezer_id)
 else:
     print("Using " + input_id)
-    
+
+albums = []
+album_list = []
 artists = {}
-artists_dupe = {}
 dupe_id = []
 error_log = []
 playlists = []
@@ -90,39 +91,40 @@ for id in playlists_ids:
         if r.get("next"):
             url = r["next"]
         else:
-            print("Found " + str(len(playlists_tracks)) + " tracks to process for " + playlist_name)
+            print("Found " + str(len(playlists_tracks)) + " tracks to process for playlist " + playlist_name)
             all_tracks_loaded = True
     
     for count in range(len(playlists_tracks)):
+        album_title = playlists_tracks[count]["album"]["title"]
+        album_id = playlists_tracks[count]["album"]["id"]
         artist_name = playlists_tracks[count]["artist"]["name"]
         artist_id = playlists_tracks[count]["artist"]["id"]
-        if artist_name not in artists and str(artist_id) not in ignore_artist_ids:
-            artists[artist_name] = playlist_name
-            dupe_id.append(id)
-            print ("Added " + artist_name + ", found in " + playlist_name + " (" + str(id) + ")")
-        elif artist_name in artists and id not in dupe_id and str(artist_id) not in ignore_artist_ids:
-            artists[artist_name] += " + " + playlist_name
-            dupe_id.append(id)
-            print ("Found " + artist_name + " that already exists in other playlist, " + playlist_name + " (" + str(id) + ") added as dupe playlist")
-            artists_dupe[artist_name] = artists[artist_name]
+        
+        album_title_scrubbed = ""
+        
+        if album_title not in albums and str(artist_id) not in ignore_artist_ids and str(album_id) not in ignore_album_ids:
+            albums.append(album_title)
+            # Remove unneeded things in the title of an album that's within brackets (such as "Deluxe" or "International")
+            album_title_scrubbed = re.sub(regex, "", album_title)
+            print ("Added " + album_title + ", scrubbed as " + album_title_scrubbed)
+            # The ; is used to split the difference between album title and artist, so this makes sure an album title never contains that symbol
+            album_title_scrubbed = re.sub(";", "", album_title_scrubbed)
+            album_list.append(album_title_scrubbed + ";" + artist_name)
             
-# Output artists dictionary as "output_DeezerArtistCollect.txt" and    
+# Output artists dictionary as "output_DeezerAlbumCollect.txt" and    
 # artists that were found in multiple playlists as 
 # "output_DeezerArtistDupeCollect.txt"
 #
 # It checks if the dictionaries actually have something in them before
 # attempting to write a file
 
-if artists:    
-    with open("output_DeezerArtistCollect.txt", "w+", encoding='utf-8') as f:
-        print(sorted(artists.items(), key=lambda x: x[0]), file=f)
-
-if artists_dupe:   
-    with open("output_DeezerArtistDupeCollect.txt", "w+", encoding='utf-8') as f:
-        print(sorted(artists_dupe.items(), key=lambda x: x[0]), file=f)
+if album_list:    
+    with open("output_DeezerAlbumCollect.txt", "w+", encoding='utf-8') as f:
+        for item in album_list:
+            f.write("%s\n" % item)
         
 # If an error got caught, output them
         
 if error_log:
-    with open("output_ErrorLog_DeezerArtistCollect.txt", "w+", encoding='utf-8') as f:
+    with open("output_ErrorLog_DeezerAlbumCollect.txt", "w+", encoding='utf-8') as f:
         print(error_log, file=f)   

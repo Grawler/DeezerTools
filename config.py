@@ -5,6 +5,8 @@
 DeezerTools/config.py
 """
 
+# You can find these IDs at the Deezer web player.
+#
 # Visit Deezer.com with your browser and log in. On the left side will be
 # a menu with your music. Find the url, your id will be inside it.
 #
@@ -28,8 +30,6 @@ ignore_playlist_ids = ["5710929302",
                        "888931541"]
 
 # These artists will be ignored while scanning for them.
-# You can find these artist IDs at the Deezer website, on your profile or in
-# any playlist.
 #
 # Example: https://www.deezer.com/us/artist/6861265
 #                                           ^^^^^^^
@@ -39,15 +39,32 @@ ignore_playlist_ids = ["5710929302",
 ignore_artist_ids = ["5080",
                      "6861265"]
 
-# NOT IMPLEMENTED YET
+# These albums will be ignored while scanning for them.
+#
+# Example: https://www.deezer.com/us/album/10099334
+#                                          ^^^^^^^^ 
 
-ignore_song_ids = []
 ignore_album_ids = []
 
+# If you want extra characters in album titles gone, leave the regex as
+# it is, otherwise replace it with ""
+
+regex = "[\(\[].*?[\)\]]"
+
+# NOT IMPLEMENTED YET
+#                     NOT IMPLEMENTED YET
+#                                         NOT IMPLEMENTED YET
+# ignore_song_ids = []
+# ignore_album_ids = []
+#
 # If you keep getting errors while running this program, you may want to
 # slow down the requests, where the number is how many seconds the program
 # waits before moving on
 #
-# NOT IMPLEMENTED YET
-
-sleepduration = 0
+#
+# sleepduration = 0
+#
+# These playlists will be used to scan what albums exist and where. It will
+# not list duplicates separately
+#
+# collect_album_ids = []

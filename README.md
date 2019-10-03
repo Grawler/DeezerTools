@@ -22,6 +22,7 @@ You'll need to install Python 3.x and then install the module "requests", see be
 - Set up config.py (optional, but recommended)
 - Run the Python file for the tool you want to use
 
+DeezerAlbumCollect.py: Collects all albums from your playlists and outputs them as "output_DeezerAlbumCollect.txt"
 DeezerArtistCollect.py: Collects all artists from your playlists and outputs them as "output_DeezerArtistCollect.txt"
 DeezerPlaylistSongCount.py: Counts how many songs are in each playlist and outputs them as "output_DeezerPlaylistSongCount.txt"
 
@@ -34,9 +35,36 @@ DeezerPlaylistSongCount.py: Counts how many songs are in each playlist and outpu
 
 Changelog:
 
-### 0.1:
+### 0.8:
 
-- Initial release
+- Flipped changelog so latest version is on top
+- Cleaned config.py up a bit
+- (DeezerAlbumCollect) Reports back what albums were found in playlists, this is useful for exporting all your albums
+
+### 0.7:
+
+- Dictionary are output by alphabetical key order (i.e. the name of the playlist or artist)
+- While processing it'll notify you of the progress (x out x (x%))
+
+### 0.6:
+
+- Added requirements.txt
+
+### 0.5:
+
+- (DeezerPlaylistSongCount) Report back how many songs are in the playlists for deezer_id
+
+### 0.4:
+
+- Was not grabbing all tracks from a playlist, causing incomplete results. Made sure it now loads all tracks and process them
+- Set encoding to utf-8 so weird characters doesn't stop the program
+- Added try/except so error gets printed and logged, then makes the program sleep for a minute before moving on
+
+### 0.3:
+
+- "Ignored list" feature added, which can be set up in config.py
+- "Ignore artist" feature added, which can be set up in config.py
+- (DeezerArtistCollect) "Duplicate artist" feature added, collects artists found in multiple playlists and outputs it as "output_DeezerArtistDupeCollect.txt" (if anything was found)
 
 ### 0.2:
 
@@ -48,33 +76,13 @@ Changelog:
 - Set up ignored_playlist_ids for later use in config.py
 - Renamed project to DeezerTools (was DeezerArtistCollect)
 
-### 0.3:
+### 0.1:
 
-- "Ignored list" feature added, which can be set up in config.py
-- "Ignore artist" feature added, which can be set up in config.py
-- (DeezerArtistCollect) "Duplicate artist" feature added, collects artists found in multiple playlists and outputs it as "output_DeezerArtistDupeCollect.txt" (if anything was found)
-
-### 0.4:
-
-- Was not grabbing all tracks from a playlist, causing incomplete results. Made sure it now loads all tracks and process them
-- Set encoding to utf-8 so weird characters doesn't stop the program
-- Added try/except so error gets printed and logged, then makes the program sleep for a minute before moving on
-
-### 0.5:
-
-- (DeezerPlaylistSongCount) Report back how many songs are in the playlists for deezer_id
-
-### 0.6:
-
-- Added requirements.txt
-
-### 0.7:
-
-- Dictionary are output by alphabetical key order (i.e. the name of the playlist or artist)
-- While processing it'll notify you of the progress (x out x (x%))
+- Initial release
 
 ## ToDo
 
+- Collect functions in a single file, so the same function doesn't exist in other files
 - File saving/loading so it doesn't have to cycle through the entire playlists collection
 - Check if playlist has changed in size and if not, ignored
 - Have a timer to see how long it takes
